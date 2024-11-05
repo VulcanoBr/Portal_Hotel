@@ -50,9 +50,13 @@ Cadastro de Hotel
 
     Geração Automática: Quartos são gerados automaticamente após a criação do hotel.
 
+    Acesso aos quartos: Opção de acesso para cada hotel".
+
     Bloquear quartos: Opção de bloqueio para cada hotel".
 
 Cadastro de Quarto
+
+    Acesso aos quartos: Somente a partir de um Hotel.
 
     Campos Obrigatórios: Número do quarto, andar, descrição, status, hotel, tipo de quarto, preço diário.
 
