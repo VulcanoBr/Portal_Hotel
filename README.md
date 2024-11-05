@@ -130,9 +130,11 @@ Fazer Reservas
 
     Forma de Pagamento: Opções de cartão de crédito, boleto e PIX.
 
-    Confirmação: Geração de código de reserva e envio de e-mail com os detalhes.
+    Confirmação: Geração de código de reserva e envio de e-mail para usaurio com os detalhes.
 
 Cancelar Reservas
+
+    Autenticação: O cliente deve estar autenticado.
 
     Condições: Somente reservas com status "reserved" até um dia antes da data de início.
 
@@ -142,6 +144,8 @@ Enviar Dúvidas
 
     Campos Obrigatórios: Todos os dados do formulário.
 
+    Email: Envio para suporte do site.
+
     Armazenamento: As mensagens não são armazenadas.
 
 Pesquisar Hotéis
@@ -150,9 +154,11 @@ Pesquisar Hotéis
 
 Ver Histórico de Reservas
 
+    Autenticação: O cliente deve estar autenticado.
+
     Visualização: Todas as reservas, do mais recente para o mais antigo.
 
-    Cancelamento: Opção de cancelamento para reservas com status "reserved".
+    Cancelamento: Opção de cancelamento para reservas com status "reserved" e data de inicio menor que a data atual, e envio de email para usaurio com detalhamento..
 
 ### Algumas views de Cliente
 
@@ -210,9 +216,9 @@ Criação da base de dados
 
 - rails db:create
 - rails db:migrate
-  - OBS: Caso queira popular a base de dados para as tabelas RoomType, Hotel, Amenity, CancellationReason, antes na model de Room, comentar a linha "after_create :create_rooms", e
+  - OBS: Caso queira popular a base de dados para as tabelas RoomType, Hotel, Amenity, CancellationReason, antes na model de Hotel, comentar a linha "after_create :create_rooms", e
     executar no terminal "rails dev:reset",
-    depois na model de Room, descomentar a linha "after_create :create_rooms".
+    depois na model de Hotel, descomentar a linha "after_create :create_rooms".
 - rails db:seed para criar usuario admin
   - OBS: Sempre que executar no terminal "rails dev:reset" NÃO precisa executar "rails db:seed"
 
