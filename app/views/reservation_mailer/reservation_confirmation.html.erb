@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        max-width: 650px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      .header {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+      .logo {
+        max-width: 150px;
+        height: auto;
+      }
+      .reservation-details {
+        background: #f8f9fa;
+        border-radius: 5px;
+        padding: 20px;
+        margin: 20px 0;
+      }
+      .hotel-info {
+        margin-top: 20px;
+        padding-top: 20px;
+        border-top: 1px solid #dee2e6;
+      }
+      .footer {
+        margin-top: 30px;
+        padding-top: 20px;
+        border-top: 1px solid #dee2e6;
+        font-size: 0.9em;
+        color: #6c757d;
+      }
+      .button {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #0d6efd;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <%= image_tag attachments['logo2.svg'].url, class: 'logo', alt: 'Logo' %>
+    </div>
+    <p>Olá, <%= @user.name %>!</p>
+    <p>Sua reserva foi processado com sucesso. Abaixo estão os detalhes:</p>
+    <div class="reservation-details">
+      <h3>Detalhes da Reserva </h3>
+      <p><strong>Número da Reserva:</strong> <%= @reservation.reservation_code %></p>
+      <p><strong>Hotel:</strong> <%= @hotel.name %></p>
+      <p><strong>Quarto:</strong> <%= @room.room_type.description %> - <%= @room.room_number %></p>
+      <p><strong>Check-in:</strong> <%= l @reservation.check_in_date, format: :long %></p>
+      <p><strong>Check-out:</strong> <%= l @reservation.check_out_date, format: :long %></p>
+      <p><strong>Valor Total:</strong> <%= number_to_currency(@reservation.payment.total_value) %></p>
+    </div>
+    <h4>Informações sobre Cancelamento da Reserva</h4>
+    <p>Sua reserva poderá ser cancelada:</p>
+    <ul>
+      <li>Por voce, até um dia antes da data da reserva.</li>
+      <li>Fora do prazo estipulado, entre em contato como nosso suporte.</li>
+    </ul>
+    <div class="hotel-info">
+      <h4>Precisa de Ajuda?</h4>
+      <p>Entre em contato com nosso suporte:</p>
+      <ul>
+        <li>Email: <%= @hotel.email %></li>
+        <li>Telefone: <%= @hotel.telephone %></li>
+      </ul>
+    </div>
+    <%= link_to "Ver Minhas Reservas", "/", class: 'button' %>
+    <div class="footer">
+      <p>Esta é uma mensagem automática. Por favor, não responda a este e-mail.</p>
+      <p>© <%= Time.current.year %> <%= @hotel.name %>. Todos os direitos reservados.</p>
+    </div>
+  </body>
+</html>

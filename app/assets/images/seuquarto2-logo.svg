@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 150">
+  <!-- Retângulo representando um quarto -->
+  <rect x="10" y="40" width="80" height="60" fill="none" stroke="#3498db" stroke-width="4"/>
+  
+  <!-- Porta -->
+  <rect x="70" y="60" width="20" height="40" fill="#3498db"/>
+  
+  <!-- Texto "SeuQuarto" em 3D -->
+  <g transform="translate(110, 50)">
+    <!-- Camada de fundo (sombra) -->
+    <text x="5" y="55" font-family="Arial, sans-serif" font-size="48" font-weight="bold" fill="#2c3e50">SeuQuarto</text>
+    
+    <!-- Camada do meio -->
+    <text x="3" y="53" font-family="Arial, sans-serif" font-size="48" font-weight="bold" fill="#3498db">SeuQuarto</text>
+    
+    <!-- Camada frontal -->
+    <text x="0" y="50" font-family="Arial, sans-serif" font-size="48" font-weight="bold" fill="#5dade2">SeuQuarto</text>
+  </g>
+</svg>

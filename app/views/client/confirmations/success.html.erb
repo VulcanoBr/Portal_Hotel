@@ -1,0 +1,48 @@
+<div class="container my-0">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow-lg border-0 rounded">
+        <div class="card-body text-center">
+          <h1 class="display-5 text-success mb-4"><i class="bi bi-check-circle-fill"></i> Reserva Confirmada!</h1>
+          <p class="lead">Obrigado por reservar conosco! Sua reserva foi confirmada com sucesso.</p>
+          <!-- Detalhes da Reserva -->
+          <div class="row mt-4 justify-content-center">
+            <div class="col-12 text-center">
+              <h4>Detalhes da Reserva</h4>
+              <hr class="mx-auto" style="width: 50%;"> <!-- Alinha o divisor horizontal -->
+            </div>
+            <div class="col-md-6 text-center">
+              <p><strong>Código da Reserva:</strong> <span id="reservation-code"><%= @reservation.reservation_code %></span></p>
+              <p><strong>Hotel:</strong> <span id="hotel-name"><%= @reservation.hotel.name %></span></p>
+              <p><strong>Quarto:</strong> <span id="room-type"><%= @reservation.room.room_type.description %></span> - <span id="room-number"><%= @reservation.room.room_number %></span></p>
+              <p><strong>Forma de pagamento:</strong> <span id="payment-method"><%= @reservation.payment.payment_method %></span></p>
+            </div>
+            <div class="col-md-6 text-center">
+              <p><strong>Check-in:</strong> <span id="check-in-date"><%= l @reservation.check_in_date, format: :long %></span></p>
+              <p><strong>Check-out:</strong> <span id="check-out-date"><%= l @reservation.check_out_date, format: :long %></span></p>
+              <p><strong>Diária da Reserva:</strong> <span id="daily-price"><%= number_to_currency(@reservation.daily_price) %></span></p>
+              <p><strong>Total da Reserva:</strong> <span id="total-value"><%= number_to_currency(@reservation.total_daily) %></span></p>
+            </div>
+          </div>
+          <!-- Mensagem de Agradecimento -->
+          <div class="row text-center mt-3 mb-4">
+            <div class="col-12">
+              <p class="lead">Em caso de dúvidas, entre em contato com nossa equipe.</p>
+            </div>
+          </div>
+          <!-- Informações de Contato -->
+          <div class="row text-center">
+            <div class="col-12">
+              <p><i class="bi bi-telephone-fill"></i> <%= @reservation.hotel.telephone %></p>
+              <p><i class="bi bi-envelope-fill"></i> <%= @reservation.hotel.email %></p>
+            </div>
+          </div>
+          <!-- Botão para voltar ao início -->
+          <div class="mt-5">
+            <%= link_to "Fechar", root_path, class: "btn btn-primary btn-md" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

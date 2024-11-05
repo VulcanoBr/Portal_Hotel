@@ -1,0 +1,101 @@
+<div class="container my-4" data-controller="payment">
+  <h2 class="text-center">Informações de Pagamento</h2>
+  
+
+  <%= simple_form_for [:client, @payment_form], url: client_payments_path, method: :post do |f| %>
+
+    <!-- Escolha de método de pagamento -->
+    <div class="mb-4">
+      <h4>Método de Pagamento</h4>
+      <div class="payment-methods border p-3" style="border-radius: 10px;">
+        <div class="form-check d-inline-block me-5" style="margin-right: 20px;">
+          <%= f.radio_button :payment_method, 'credit_card', id: 'credit_card_option', class: 'form-check-input', 
+              data: { action: "payment#togglePaymentFields" }, data_payment_target: "paymentMethod" %>
+          <%= f.label :payment_method, 'Cartão de Crédito', class: 'form-check-label', for: 'credit_card_option' %>
+        </div>
+
+        <div class="form-check d-inline-block me-5" style="margin-right: 20px;">
+          <%= f.radio_button :payment_method, 'boleto', id: 'boleto_option', class: 'form-check-input', 
+              data: { action: "payment#togglePaymentFields" }, data_payment_target: "paymentMethod" %>
+          <%= f.label :payment_method, 'Boleto', class: 'form-check-label', for: 'boleto_option' %>
+        </div>
+
+        <div class="form-check d-inline-block">
+          <%= f.radio_button :payment_method, 'pix', id: 'pix_option', class: 'form-check-input', 
+              data: { action: "payment#togglePaymentFields" }, data_payment_target: "paymentMethod"%>
+          <%= f.label :payment_method, 'PIX', class: 'form-check-label', for: 'pix_option' %>
+        </div>
+        <%= f.full_error :payment_method, class: "mb-3" %>
+      </div>
+    </div>
+
+    <!-- Seção Cartão de Crédito -->
+    <div id="credit_card_fields" class="payment-section d-none" data-payment-target="creditCardFields">
+      <h4>Dados do Cartão de Crédito</h4>
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <%= f.input :card_name, label: 'Nome no Cartão' %>
+        </div>
+        <div class="col-md-6">
+          <%= f.input :card_number, label: 'Número do Cartão', input_html: { maxlength: 16 } %>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-md-4">
+          <%= f.input :card_expiry_month, label: 'Mês de Validade', 
+              collection: (1..12).map { |m| [m.to_s.rjust(2, '0'), m] }, prompt: 'Selecione o mês' %>
+        </div>
+        <div class="col-md-4">
+          <%= f.input :card_expiry_year, label: 'Ano de Validade', 
+              collection: (Time.current.year..Time.current.year+10).to_a, prompt: 'Selecione o ano' %>
+        </div>
+        <div class="col-md-4">
+          <%= f.input :card_cvc, label: 'Código de Segurança (CVC)', input_html: { maxlength: 3 } %>
+        </div>
+      </div>
+
+      <!-- Parcelamento -->
+      <div class="mb-3">
+        <%= f.input :installments, label: 'Número de Parcelas', collection: (1..12).map { |i| ["#{i}x de #{number_to_currency(sprintf('%.2f', @payment_form.total_value / i))}", i] }, prompt: 'Selecione o número de parcelas' %>
+      </div>
+
+      <div class="mb-3">
+        <%= f.input :total_value, label: 'Valor Total', input_html: { readonly: true, value: number_to_currency(@payment_form.total_value) } %>
+      </div>
+    </div>
+
+    <!-- Seção Boleto -->
+    <div id="boleto_fields" class="payment-section d-none" data-payment-target="boletoFields">
+      <h4>Boleto</h4>
+      <div class="mb-3">
+        <%= f.input :total_value, label: 'Valor Total', input_html: { readonly: true, value: number_to_currency(@payment_form.total_value) } %>
+      </div>
+      <p>Utilize o código de barras abaixo para pagar com boleto bancário:</p>
+      <div class="mb-3">
+        <%= f.input :boleto_barcode, label: 'Código de Barras', 
+            input_html: { readonly: true,  value: "12345678901234567890123456789012345678901234", data: { target: 'payment.boletoBarcode' }, class: 'form-control-plaintext' } %>
+      </div>
+    </div>
+
+    <!-- Seção PIX -->
+    <div id="pix_fields" class="payment-section d-none" data-payment-target="pixFields">
+      <h4>PIX</h4>
+      <div class="mb-3">
+        <%= f.input :total_value, label: 'Valor Total', input_html: { readonly: true, value: number_to_currency(@payment_form.total_value) } %>
+      </div>
+      <p>Utilize o código PIX abaixo para efetuar o pagamento:</p>
+      <div class="mb-3">
+        <%= f.input :pix_code, label: 'Código PIX', 
+            input_html: { readonly: true, value: "123e4567-e89b-12d3-a456-426614174000", data: { target: 'payment.pixCode' }, class: 'form-control-plaintext' } %>
+      </div>
+    </div>
+
+    <!-- Botão de Confirmar Pagamento -->
+    <div class="d-flex mt-4">
+      <%= link_to "Cancelar", root_path, class: "btn btn-secondary me-5 " %>
+      <%= f.submit 'Confirmar Pagamento',  class: 'btn btn-primary' %>
+    </div>
+
+  <% end %>
+</div>

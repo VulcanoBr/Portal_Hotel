@@ -1,0 +1,23 @@
+Olá, <%= @user.name %>!
+Sua reserva foi processado com sucesso. Abaixo estão os detalhes:
+DETALHES DA RESERVA
+============================
+Número da Reserva: <%= @reservation.reservation_code %>
+Hotel: <%= @hotel.name %>
+Quarto: <%= @room.room_type.description %> - <%= @room.room_number %>
+Check-in: <%= l @reservation.check_in_date, format: :long %>
+Check-out: <%= l @reservation.check_out_date, format: :long %>
+Valor Total: <%= number_to_currency(@reservation.payment.total_value) %>
+INFORMAÇÕES SOBRE O CANCELAMENTO DA RESERVA
+===========================
+Sua reserva poderá ser cancelada:</p>
+- Por voce, até um dia antes da data da reserva.</li>
+- Fora do prazo estipulado, entre em contato como nosso suporte.
+PRECISA DE AJUDA?
+================
+Entre em contato com nosso suporte:
+Email: <%= @hotel.email %>
+Telefone: <%= @hotel.telephone %>
+Para ver suas reservas, acesse: 
+Esta é uma mensagem automática. Por favor, não responda a este e-mail.
+© <%= Time.current.year %> <%= @hotel.name %>. Todos os direitos reservados.

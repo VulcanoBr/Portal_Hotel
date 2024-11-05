@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  reservation: one
+  payment_method: MyString
+  installments: MyString
+  boleto_barcode: MyString
+  pix_code: MyString
+
+two:
+  reservation: two
+  payment_method: MyString
+  installments: MyString
+  boleto_barcode: MyString
+  pix_code: MyString

@@ -1,0 +1,84 @@
+<div class="container-xl d-flex flex-column justify-content-center">
+  <div class="card">
+    <div class="card-header bg-primary text-white text-center">
+      <h4 class="card-title"><%= resource_form_title + "  Hotel "%></h4>
+    </div>
+    <%= simple_form_for [:admin, @hotel] do |form| %>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-12 col-md-6 col-lg-4">
+            <%= form.input :name %>
+          </div>
+          <div class="col-12 col-md-6 col-lg-4">
+            <%= form.input :title %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 col-md-6 col-lg-4">
+            <%= form.input :location %>
+          </div>
+          <div class="col-12 col-md-6 col-lg-4">
+            <%= form.input :email %>
+          </div>
+          <div class="col-12 col-md-6 col-lg-4">
+            <%= form.input :telephone %>
+          </div>
+        </div>
+        <%= form.input :description, as: :text, input_html: { rows: 5 } %>
+        <div class="row">
+          <div class="col-12 col-md-6 col-lg-4">
+            <%= form.input :total_rooms, disabled: (action_name == "edit") %>
+          </div>
+          <div class="col-12 col-md-6 col-lg-4">
+            <%= form.input :floors, disabled: (action_name == "edit") %>
+          </div>
+          <div class="col-12 col-md-6 col-lg-4">
+            <%= form.input :max_rooms_per_floor, disabled: (action_name == "edit") %>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-12">
+            <%= form.association :amenities, 
+                    as: :check_boxes,
+                    collection: @amenities,
+                    label_method: :description,
+                    value_method: :id,
+                    include_hidden: false,
+                    item_wrapper_class: 'form-check form-check-inline col-md-3',
+                    input_html: { class: 'form-check-input', name: 'hotel[amenity_ids][]' } %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 col-md-4">
+            <%= form.input :address_zip_code %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 col-md-6 col-lg-4">
+            <%= form.input :address_state %>
+          </div>
+          <div class="col-12 col-md-6 col-lg-4">
+            <%= form.input :address_city %>
+          </div>
+          <div class="col-12 col-md-6 col-lg-4">
+            <%= form.input :address_neighborhood %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 col-md-9">
+            <%= form.input :address_street %>
+          </div>
+          <div class="col-12 col-md-3">
+            <%= form.input :address_number %>
+          </div>
+        </div>
+        <%= form.input :address_complement %>
+        <%= form.file_field :images, multiple: true %>
+      </div>
+      <div class="card-footer d-flex justify-content-between">
+        <%= link_to "Voltar", admin_hotels_path, class: "btn btn-secondary" %>
+        <%= form.button :submit, class: "btn btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+</div>

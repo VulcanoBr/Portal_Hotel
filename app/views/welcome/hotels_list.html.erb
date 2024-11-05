@@ -1,0 +1,55 @@
+<section class="">
+  <div class="container">
+    <h2 class="display-6 text-center mb-4">Encontre seu Hotel</h2>
+    <div>
+      <div class="row justify-content-center">
+        <div class="col-md-8 d-flex align-items-center">
+          <%= form_with url: welcome_hotels_list_path, method: :get, local: true, class: "d-flex w-100" do %>
+            <%= text_field_tag :name, nil, class: "form-control", placeholder: "Pesquisar Hotel por nome", aria_label: "Pesquisar" %>
+            <%= button_tag(type: 'submit', class: "btn btn-success me-5", title: "Pesquisar", alt: "pesquisar") do %>
+              <%= image_tag "lupa.svg" %>
+            <% end %>
+          <% end %>
+          <% if @pagy.count > 6 %>
+            <div class="ms-5">
+              <%= pagy_bootstrap_nav(@pagy).html_safe %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="py-0">
+  <div class="container mt-3">
+    <h2 class="display-6 text-center mb-5">Hotéis Disponíveis</h2>
+    <div class="row g-4">
+      <% @hotels.each do |hotel|%>
+        <!-- Hotel 1 -->
+        <div class="col-md-4">
+          <div class="card h-100 shadow-sm">
+            <img src="https://via.placeholder.com/400x200" class="card-img-top" alt="Hotel 1">
+            <div class="card-body">
+              <h5 class="card-title"><%= hotel.name%></h5>
+              <p class="card-text text-muted"><i class="bi bi-geo-alt-fill"></i> <%=  "#{hotel.address_city}, #{hotel.address_state} "%></p>
+              <p class="card-text"><%= hotel.title %></p>
+              <p class="text-primary fw-bold"><%= " #{number_to_currency(@first_room_details[hotel.id][:daily_price])}/noite - Quarto  #{@first_room_details[hotel.id][:room_type_description]}" %>
+                <%= link_to "Reservar", new_client_reservation_path(hotel_id: hotel.id), class: "badge bg-primary ms-4"  %>
+              </p>
+            </div>
+            <div class="card-footer text-center bg-white">
+              <a> <%= link_to "Ver Detalhes", welcome_hotel_details_path(id: hotel.id), class:"btn btn-primary w-100" %></a>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section>
+<div class="row">
+  <% if @pagy.count > 6 %>
+    <div class="mt-4 col-md-12 d-flex justify-content-center">
+      <%= pagy_bootstrap_nav(@pagy).html_safe%>
+    </div>
+  <% end %>
+</div>

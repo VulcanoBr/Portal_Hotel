@@ -1,0 +1,61 @@
+<header class="navbar-expand-md">
+  <div class="collapse navbar-collapse" id="navbar-menu">
+    <div class="navbar">
+      <div class="container-xl">
+        <div class="row flex-fill align-items-center">
+          <div class="col">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <%= link_to root_path, class: "nav-link" do %>
+                  <span class="nav-link-icon d-md-none d-lg-inline-block">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="icon"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      stroke-width="2"
+                      stroke="currentColor"
+                      fill="none"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                      <path d="M5 12l-2 0l9 -9l9 9l-2 0" />
+                      <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+                      <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+                    </svg>
+                  </span>
+                  <span class="nav-link-title me-4 "> Página Inicial </span>
+                <% end %>
+              </li>
+              <% if user_signed_in? && current_user.admin? %>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle text-black" href="#" id="pedidosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="true">
+                    Menu Admin
+                  </a>
+                  <ul class="dropdown-menu" aria-labelledby="pedidosDropdown">
+                    <li><%= link_to raw('<i class="bi bi-building-fill"></i>&nbsp;Hoteis'), admin_hotels_path, class: "dropdown-item"  %></li>
+                    <li><%= link_to raw('<i class="bi bi-shadows"></i>&nbsp;Tipo de Quartos'), admin_room_types_path, class: "dropdown-item"  %></li>
+                    <li><%= link_to raw('<i class="bi bi-shadows"></i>&nbsp;Tipo de Comodidades'), admin_amenities_path, class: "dropdown-item"  %></li>
+                    <li><%= link_to raw('<i class="bi bi-shadows"></i>&nbsp;Tipo de Razão de Cancelamento'), admin_cancellation_reasons_path, class: "dropdown-item"  %></li>
+                    <li><%= link_to raw('<i class="bi bi-shadows"></i>&nbsp;Quarto(s) Bloqueado(s)'), block_room_list_admin_block_rooms_path, class: "dropdown-item"  %></li>
+                  </ul>
+                </li>
+              <% else %>
+                <% if user_signed_in? && current_user.client? %>
+                  <li class="nav-item me-4">
+                    <%= link_to link_to raw('<i class="bi bi-hospital-fill"></i>&nbsp;Minhas Reservas'), reservation_histories_client_reservations_path, class: " "  %>
+                  </li>
+                <% end %>
+                <li class="nav-item mr-4">
+                  <%= link_to link_to raw('<i class="bi bi-building-fill"></i>&nbsp;Hoteis'), welcome_hotels_list_path, class: " "  %>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

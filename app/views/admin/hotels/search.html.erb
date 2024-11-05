@@ -1,0 +1,9 @@
+
+<% @hotels.each do |hotel| %>
+  <li class="list-group-item" role="option" 
+    data-action="click->search-rooms#updateHotel"
+    data-autocomplete-value="<%= hotel.id %>"
+    id="stimulus-autocomplete-option-<%= hotel.id %>">
+    <%= hotel.name %> 
+  </li>
+<% end %>

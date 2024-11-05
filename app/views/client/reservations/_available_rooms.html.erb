@@ -1,0 +1,45 @@
+<% if rooms.present? %>
+  <h3 class="mb-4">Quartos Disponíveis</h3>
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped table-hover">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Andar</th>
+          <th>Quarto</th>
+          <th>Descrição</th>
+          <th>Diária</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% rooms.each do |room| %>
+          <tr>
+            <td>
+              <div class="form-check">
+                <%= radio_button_tag 'reservation_form[room_id]', room.id, false, class: 'form-check-input', id: "reservation_room_id_#{room.id}",  style: 'border: 2px solid black; width: 1.05em; height: 1.05em;' %>
+              </div>
+            </td>
+            <td><%= room.floor_number %></td>
+            <td><%= "#{room.room_type.description} - #{room.room_number}" %></td>
+            <td><%= room.description %></td>
+            <td>
+              <span class="badge text-white bg-success rounded-pill">
+                <%= number_to_currency(room.daily_price) %>
+              </span>
+            </td>
+            <td>
+              <span class="badge text-white bg-primary rounded-pill">
+                <%= number_to_currency((check_out_date - check_in_date + 1) * room.daily_price) %>
+              </span>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% elsif @search_performed %>
+  <div class="alert alert-warning">
+    Não há quartos disponíveis para o período escolhido.
+  </div>
+<% end %>

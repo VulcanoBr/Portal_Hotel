@@ -1,0 +1,26 @@
+Olá, <%= @user.name %>!
+O cancelamento da sua reserva foi processado com sucesso. Abaixo estão os detalhes:
+DETALHES DA RESERVA CANCELADA
+============================
+Número da Reserva: <%= @reservation.reservation_code %>
+Hotel: <%= @hotel.name %>
+Quarto: <%= @room.room_type.description %> - <%= @room.room_number %>
+Check-in: <%= l @reservation.check_in_date, format: :long %>
+Check-out: <%= l @reservation.check_out_date, format: :long %>
+Valor Total: <%= number_to_currency(@reservation.payment.total_value) %>
+Motivo do cancelamento : <%= @reservation.cancellation_reason.name %>
+Data do Cancelamento: <%= l @reservation.canceled_at, format: :long %>
+INFORMAÇÕES SOBRE O REEMBOLSO
+===========================
+O reembolso será processado de acordo com nossa política de cancelamento:
+- O valor será estornado para o mesmo cartão utilizado na reserva
+- O prazo para o reembolso é de até 5 dias úteis
+- Você receberá um e-mail de confirmação quando o reembolso for processado
+PRECISA DE AJUDA?
+================
+Entre em contato com nosso suporte:
+Email: <%= @hotel.email %>
+Telefone: <%= @hotel.telephone %>
+Para ver suas reservas, acesse: 
+Esta é uma mensagem automática. Por favor, não responda a este e-mail.
+© <%= Time.current.year %> <%= @hotel.name %>. Todos os direitos reservados.

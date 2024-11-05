@@ -1,0 +1,31 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  location: MyString
+  email: MyString
+  total_rooms: 1
+  floors: 1
+  max_rooms_per_floor: 1
+  address_zip_code: MyString
+  address_state: MyString
+  address_city: MyString
+  address_neighborhood: MyString
+  address_street: MyString
+  address_number: MyString
+  address_complement: MyString
+
+two:
+  name: MyString
+  location: MyString
+  email: MyString
+  total_rooms: 1
+  floors: 1
+  max_rooms_per_floor: 1
+  address_zip_code: MyString
+  address_state: MyString
+  address_city: MyString
+  address_neighborhood: MyString
+  address_street: MyString
+  address_number: MyString
+  address_complement: MyString

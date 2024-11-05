@@ -1,0 +1,84 @@
+<section class="py-0">
+  <div class="container">
+    <!-- Nome do Hotel e Localização -->
+    <div class="row mb-4">
+      <div class="col-md-7">
+        <h2 class="display-6"><%= @hotel.name %></h2>
+        <p class="text-muted"><i class="bi bi-geo-alt-fill"></i> <%= @hotel.formatted_address %> </p>
+      </div>
+      <div class="col-md-5 text-md-end">
+        <p class="text-primary fw-bold h4"><%= " #{number_to_currency(@first_room_details.daily_price)}/noite - Quarto  #{@first_room_description}" %></p>
+        <a><%= link_to '  Reservar agora!', new_client_reservation_path(hotel_id: @hotel.id), class:"btn btn-primary" %></a>
+      </div>
+    </div>
+    <!-- Imagens do Hotel -->
+    <div class="row g-4 mb-5">
+      <div class="col-md-8">
+        <img src="https://via.placeholder.com/800x400" alt="Hotel Luxo" class="img-fluid rounded">
+      </div>
+      <div class="col-md-4 d-flex flex-column gap-3">
+        <img src="https://via.placeholder.com/400x200" alt="Quarto Hotel Luxo" class="img-fluid rounded">
+        <img src="https://via.placeholder.com/400x200" alt="Piscina Hotel Luxo" class="img-fluid rounded">
+      </div>
+    </div>
+    <!-- Descrição -->
+    <div id="descricao" class="mb-5">
+      <h3 class="mb-3">Descrição do Hotel</h3>
+      <p class="lead"> <%= @hotel.description %> </p>
+    </div>
+    <!-- Comodidades -->
+    <div id="comodidades" class="mb-5">
+      <h3 class="mb-3">Comodidades</h3>
+      <div class="row">
+        <% @hotel.amenities.each do |amenity| %>
+          <div class="col-md-6">
+            <ul class="list-group">
+              <li class="list-group-item">
+                <i class="bi <%= Hotels::AmenityIconMapper.icon_for(amenity.description) %>"></i>
+                <%= amenity.description %>
+              </li>
+            </ul>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <div id="tipos-de-quarto" class="mb-5">
+      <h3 class="mb-3">Tipos de Quarto Disponíveis</h3>
+      <div class="row">
+        <% @room_types.each do |room_type_id, room_type_description| %>
+          <div class="col-md-4">
+            <div class="card mb-3">
+              <div class="card-body">
+                <h5 class="card-title"><i class="bi bi-star me-1"></i><%= room_type_description %></h5>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <!-- Avaliações -->
+    <div id="avaliacoes" class="mb-5">
+      <h3 class="mb-3">Avaliações</h3>
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5 class="card-title">Maria Souza</h5>
+          <p class="card-text">Hotel maravilhoso! Quartos limpos e confortáveis, atendimento excelente. Voltarei com
+            certeza!</p>
+          <p class="text-muted"><i class="bi bi-star-fill text-warning"></i> <i
+              class="bi bi-star-fill text-warning"></i> <i class="bi bi-star-fill text-warning"></i> <i
+              class="bi bi-star-fill text-warning"></i> <i class="bi bi-star-half text-warning"></i></p>
+        </div>
+      </div>
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5 class="card-title">João Pedro</h5>
+          <p class="card-text">Ótima localização e excelente custo-benefício. Recomendo para todos que estão
+            planejando uma viagem ao Rio!</p>
+          <p class="text-muted"><i class="bi bi-star-fill text-warning"></i> <i
+              class="bi bi-star-fill text-warning"></i> <i class="bi bi-star-fill text-warning"></i> <i
+              class="bi bi-star-fill text-warning"></i> <i class="bi bi-star-fill text-warning"></i></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,68 @@
+<div class="container my-4">
+  <h2 class="text-center">Reserva de Hotel</h2>
+
+  <%= simple_form_for [:client, @reservation_form], url: client_reservations_path, method: :post,
+                           html: { data: { controller: "search-rooms" } } do |form| %>
+
+    <!-- Seção de Hotel -->
+    <div class="mb-4">
+      <h4>Hotel</h4>
+      <div class="border p-3" style="border-radius: 10px;">
+        <%= form.hidden_field :user_id, value: current_user.id %>
+        <%= form.input :hotel_id, required: true do  %>
+          <div data-controller="autocomplete" data-autocomplete-url-value="<%= search_admin_hotels_path %>" 
+                data-hotel-id-value="<%= form.object.hotel_id %>" role="combobox">
+            <input type="text" class="form-control" 
+              data-autocomplete-target="input" value="<%= form.object.hotel&.name %>" placeholder="Selecione o hotel" autocomplete="off">
+            <%= form.input_field :hotel_id, as: :hidden, data: { autocomplete_target: "hidden", search_rooms_target: "hotelHidden" }  %>
+            <ul class="list-group" data-autocomplete-target="results"></ul>
+          </div>
+        <% end %>
+        <%= form.full_error :hotel_id, class: "mb-3" %>
+      </div>
+    </div>
+
+    <!-- Seção de Datas -->
+    <div class="mb-4">
+      <h4>Datas</h4>
+      <div class="border p-3" style="border-radius: 10px;">
+        <div class="row">
+          <div class="col-md-6">
+            <%= form.input :check_in_date, as: :date, html5: true, 
+                  input_html: { class: 'form-control', min: @min_date, error: 'form-text text-danger',
+                  required: true, data: { search_rooms_target: "checkInDate", 
+                  action: "change->search-rooms#updateDates" }, disabled: (action_name == "edit") } %>
+          </div>
+          <div class="col-md-6">
+            <%= form.input :check_out_date, as: :date, html5: true, 
+                  input_html: { class: 'form-control', min: @min_date,
+                  required: true, data: { search_rooms_target: "checkOutDate", 
+                  action: "change->search-rooms#updateDates" }, disabled: (action_name == "edit") } %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Turbo Frame para exibir os quartos disponíveis -->
+    <div class="mb-4">
+      
+      <div class="border p-3" style="border-radius: 10px;">
+        <%= turbo_frame_tag 'available_rooms', data: { controller: "search-rooms" } do %>
+          <%= render partial: 'available_rooms', locals: { rooms: @rooms, search_performed: @search_performed,
+                                check_in_date: @reservation_form.check_in_date, 
+                                check_out_date: @reservation_form.check_out_date } %>
+          <% if @search_performed && @rooms.length > 0 %>
+              <%= form.full_error :room_id, class: "mb-3"%>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+
+    <!-- Botões de Ação -->
+    <div class="d-flex mt-4">
+      <%= link_to "Cancelar", root_path, class: "btn btn-secondary me-5" %>
+      <%= form.submit "Confirmar Reserva", class: "btn btn-primary" %>
+    </div>
+
+  <% end %>
+</div>

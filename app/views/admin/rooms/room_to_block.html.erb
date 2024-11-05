@@ -1,0 +1,84 @@
+<%= simple_form_for [:admin, @blockroom], url: create_block_room_admin_hotel_rooms_path, method: :post do |f| %>
+  <div class="container">
+    <h3 class="mb-3">Hotel <%= @hotel&.name %> - Quartos para bloqueio</h3>
+    <!-- Tabela de quartos -->
+    <% if @blockroom.errors[:base].any? %>
+      <div class="alert alert-danger">
+        <%= @blockroom.errors[:base].join(", ") %>
+      </div>
+    <% end %>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Andar</th>
+          <th>Quarto</th>
+          <th>Tipo</th>
+          <th>Reservas</th>
+          <th>Bloqueios</th>
+          <th>Selecionar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @rooms_to_block.each do |detailed_room| %>
+          <tr>
+            <td><%= detailed_room[:room].floor_number %></td>
+            <td><%= detailed_room[:room].room_number %></td>
+            <td><%= detailed_room[:room].room_type.description %></td>
+            <td>
+              <% if detailed_room[:reservations].any? %>
+                <ul>
+                  <% detailed_room[:reservations].each do |res| %>
+                    <li>Check-in: <%= res[:check_in_date].strftime('%d/%m/%Y') %> - Check-out: <%= res[:check_out_date].strftime('%d/%m/%Y') %></li>
+                  <% end %>
+                </ul>
+              <% else %>
+                <p>Nenhuma reserva</p>
+              <% end %>
+            </td>
+            <td>
+              <% if detailed_room[:block_rooms].any? %>
+                <ul>
+                  <% detailed_room[:block_rooms].each do |block| %>
+                    <li>Início: <%= block[:start_date].strftime('%d/%m/%Y') %> - Fim: <%= block[:end_date].strftime('%d/%m/%Y') %>, Motivo: <%= block[:reason] %></li>
+                  <% end %>
+                </ul>
+              <% else %>
+                <p>Nenhum bloqueio</p>
+              <% end %>
+            </td>
+            <td>
+              <div class="form-c heck">
+                <%= f.radio_button :room_id, detailed_room[:room].id, class: 'form-check-input', id: "room_id_#{detailed_room[:room].id}",  style: 'border: 2px solid black; width: 1.05em; height: 1.05em;' %>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <%= f.full_error :room_id, class: "mb-3"%>
+    <!-- Bloco de informações para bloqueio -->
+    <div class="card">
+      <div class="card-header">
+        <h4 class="mb-0">Bloquear Quarto</h4>
+      </div>
+      <div class="card-body">
+        <div class="row g-3">
+          <div class="col-md-4">
+            <%= f.input :start_date, as: :date, html5: true, input_html: { class: 'form-control', min: @min_date } %>
+          </div>
+          <div class="col-md-4">
+            <%= f.input :end_date, as: :date, html5: true, input_html: { class: 'form-control', min: @min_date } %>
+          </div>
+          <div class="col-md-4">
+            <%= f.input :reason, label: 'Motivo', collection: BlockRoom.reasons.keys, prompt: "Select a reason", input_html: { class: 'form-select' }, wrapper: false %>
+          </div>
+        </div>
+        <!-- Botão de bloqueio -->
+        <div class="mt-3">
+          <%= f.button :submit, 'Bloquear Quarto', class: 'btn btn-primary me-5' %>
+          <%= link_to "Voltar", admin_hotels_path, class: "btn btn-secondary " %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

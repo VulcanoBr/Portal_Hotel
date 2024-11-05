@@ -1,0 +1,59 @@
+<!-- Banner -->
+<section class="bg-light text-center ">
+  <div class="container">
+    <h2 class="display-5 mb-4">Encontre o Quarto Perfeito para Sua Próxima Viagem</h2>
+    <p class="lead">Hotéis de qualidade com conforto garantido. <%= link_to '  Reserve agora!', new_client_reservation_path, class: "bi bi-building-fill me-3" %></p>
+    <a></a> <%= link_to "Veja os Hoteis", welcome_hotels_list_path, class:"btn btn-primary btn-lg mt-3" %></a>
+</div>
+</section>
+<!-- Hotéis disponíveis -->
+<section id="hoteis" class="py-5">
+  <div class="container">
+    <h2 class="text-center mb-4">Nossos Hotéis</h2>
+    <div class="row g-4">
+      <% @hotels.each do |hotel|%>
+        <!-- Hotel Card -->
+        <div class="col-md-4">
+          <div class="card h-100">
+            <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="Hotel 1">
+            <div class="card-body">
+              <h5 class="card-title"><%= hotel.name %></h5>
+              <p class="card-text"><%= hotel.title %></p>
+              <p class="text-primary fw-bold"><%= " #{number_to_currency(@first_room_details[hotel.id][:daily_price])}/noite - Quarto  #{@first_room_details[hotel.id][:room_type_description]}" %></p>
+              <a> <%= link_to '  Reservar agora!', new_client_reservation_path(hotel_id: hotel.id), class:"btn btn-primary" %></a>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section>
+<!-- Sobre Nós -->
+<section id="sobre" class="bg-light py-5">
+  <div class="container">
+    <h2 class="text-center mb-4">Sobre o +Quartos</h2>
+    <p class="text-center">O +Quartos é um portal dedicado a facilitar a busca e a reserva de quartos em hotéis de
+      qualidade em todo o país. Nossa missão é oferecer uma experiência simples, eficiente e segura para todos os
+      nossos usuários.</p>
+  </div>
+</section>
+<!-- Contato -->
+<section id="contato" class="py-5">
+  <div class="container">
+    <h2 class="text-center mb-4">Entre em Contato</h2>
+    <%= simple_form_for @contact_form, url: send_contact_path, method: :post, html: { class: "row g-3", data: { turbo: false } } do |f| %>
+      <div class="col-md-6">
+        <%= f.input :name, required: true, input_html: { class: 'form-control' } %>
+      </div>
+      <div class="col-md-6">
+        <%= f.input :email, as: :email, required: true, input_html: { class: 'form-control' } %>
+      </div>
+      <div class="col-12">
+        <%= f.input :message, as: :text, required: true, input_html: { rows: 4, class: 'form-control' } %>
+      </div>
+      <div class="col-12 text-center">
+        <%= f.button :submit, "Enviar", class: "btn btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+</section>

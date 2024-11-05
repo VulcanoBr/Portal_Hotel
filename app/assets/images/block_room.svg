@@ -1,0 +1,32 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <!-- Fundo geométrico -->
+  <rect x="0" y="0" width="100" height="100" fill="#0f172a" rx="20"/>
+  
+  <!-- Formas decorativas modernas -->
+  <polygon points="0,100 40,60 0,60" fill="#3b82f6" opacity="0.7"/>
+  <polygon points="100,0 60,40 100,40" fill="#3b82f6" opacity="0.7"/>
+  
+  <!-- Círculo de destaque -->
+  <circle cx="50" cy="50" r="35" fill="none" stroke="#3b82f6" stroke-width="2"/>
+  
+  <!-- Letras BR com estilo moderno -->
+  <text x="50" y="58" 
+        font-family="Arial, sans-serif" 
+        font-size="35" 
+        font-weight="900" 
+        fill="white" 
+        text-anchor="middle" 
+        letter-spacing="1">
+    BR
+  </text>
+  
+  <!-- Elementos decorativos -->
+  <line x1="35" y1="70" x2="65" y2="70" 
+        stroke="#3b82f6" 
+        stroke-width="2" 
+        stroke-linecap="round"/>
+  
+  <!-- Pontos decorativos -->
+  <circle cx="25" cy="25" r="2" fill="#3b82f6"/>
+  <circle cx="75" cy="75" r="2" fill="#3b82f6"/>
+</svg>

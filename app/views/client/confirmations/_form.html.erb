@@ -1,0 +1,30 @@
+<div class="container my-4">
+  <h2 class="text-center">Resumo da Reserva</h2>
+  <div class="mb-4 border p-3" style="border-radius: 10px;">
+    <p><strong>Hotel:</strong> <%= @hotel.name %>
+      <p><strong>Quarto:</strong> <%= "#{@room.room_type.description} - #{@room.room_number}" %>
+        <p><strong>Detalhes:</strong> <%= @room.description %>
+          <p><strong>Data de Início:</strong> <%= Date.parse(@reservation_data["check_in_date"]).strftime("%d/%m/%Y")%></p>
+          <p><strong>Data de Término:</strong> <%= Date.parse(@reservation_data["check_out_date"]).strftime("%d/%m/%Y")%> </p>
+          <p><strong>Diária:</strong> <%= number_to_currency(@room.daily_price) %>
+          </div>
+          <h2 class="text-center">Resumo do Pagamento</h2>
+          <div class="payment-summary border p-3 mb-4" style="border-radius: 10px;">
+            <% if @payment_data["payment_method"] == "credit_card" %>
+              <p><strong>Forma de pagamento:</strong> Cartão de Crédito </p>
+              <p><strong>Parcelado em:</strong> <%= @payment_data["installments"] %> x </p>
+            <% elsif @payment_data["payment_method"] == "boleto" %>
+              <p><strong>forma de Pagamento:</strong> Boleto </p>
+              <p><strong>Código de Barras:</strong> <%= @payment_data["boleto_barcode"] %></p>
+            <% else %>
+              <p><strong>forma de Pagamento:</strong> Pix </p>
+              <p><strong>Código Pix:</strong> <%= @payment_data["pix_code"] %></p>
+            <% end %>
+            <p><strong>Valor Total:</strong> <%= number_to_currency(@payment_data["total_value"]) %></p>
+          </div>
+          <!-- Botões -->
+          <div class="d-flex mt-4">
+            <%= link_to "Cancelar", root_path, class: "btn btn-secondary me-5 " %>
+            <%= button_to "Concluir Reserva", client_confirmations_path, method: :post, class: "btn btn-success" %>
+          </div>
+        </div>

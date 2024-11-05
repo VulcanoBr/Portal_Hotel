@@ -1,0 +1,20 @@
+<div class="mb-4 d-flex justify-content-center align-items-center">
+    <div class="mb-4 card card-primary" style="width: 100%;">
+      <div class="card-header bg-primary text-white text-center">
+        <h4 class="card-title text-center">Detalhes do Tipo de Quarto</h4>
+      </div>
+      <div class="card-body">
+        <div class="mb-2">
+          <span class="fw-bold">Descrição: </span>
+          <span class="mx-3"><%= room_type.description %></span>
+        </div>
+        
+      <div class="card-footer d-flex justify-content-center">
+        
+        <%= link_to "Editar", edit_admin_room_type_path(room_type), class: "btn btn-primary me-2" %>
+        
+        <%= link_to "Ver Lista", admin_room_types_path, class: "btn btn-secondary" %>
+      </div>
+    </div>
+  </div>
+</div>

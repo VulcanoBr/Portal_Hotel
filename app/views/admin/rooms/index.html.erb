@@ -1,0 +1,57 @@
+<div class="container mt-4">
+  <h2><%= @hotel.name %> - Gerenciamento de Quartos</h2>
+  <%= simple_form_for :rooms, url: update_multiple_admin_hotel_rooms_path(@hotel), method: :put do |f| %>
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Andar</th>
+            <th>Número</th>
+            <th>Tipo de Quarto</th>
+            <th>Preço Diária</th>
+            <th>Descrição</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @rooms.each do |room| %>
+            <%= f.simple_fields_for 'rooms[]', room do |room_form| %>
+              <tr>
+                <td><%= room.floor_number %></td>
+                <td><%= room.room_number %></td>
+                <td>
+                  <div class="col">
+                    <%= room_form.association :room_type, 
+                        label: false,
+                        label_method: :description,
+                        input_html: { class: 'form-select form-select-sm' } %>
+                  </div>
+                </td>
+                <td>
+                  <div class="col">
+                    <%= room_form.input :daily_price, 
+                      label: false,
+                      input_html: { class: 'form-control form-control-sm' } %>
+                  </div>
+                </td>
+                <td>
+                  <div class="col">
+                    <%= room_form.input :description, 
+                      label: false,
+                      input_html: { class: 'form-control form-control-sm' } %>
+                  </div>
+                </td>
+              </tr>
+              <%= room_form.hidden_field :id, value: room.id %>
+              <%= room_form.hidden_field :room_hotel_id, value: room.hotel_id %>
+            </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class="mt-3">
+    <%= submit_tag 'Salvar Alterações', class: 'btn btn-primary' %>
+    <%= link_to 'Voltar', admin_hotels_path, class: 'btn btn-secondary' %>
+  </div>
+<% end %>
+</div>

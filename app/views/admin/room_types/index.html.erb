@@ -1,0 +1,54 @@
+<div class="container card">
+  <div class="card-header">
+    <h3 class="card-title">Lista de Tipos de Quarto</h3>
+    <div class="d-flex card-actions">
+      <% if @pagy.count > 6 %>
+        <div class="me-5">
+          <%= pagy_bootstrap_nav(@pagy).html_safe %>
+        </div>
+      <% end %>
+      <%= link_to new_admin_room_type_path, class: "ms-5 btn btn-primary" do %>
+        <i class="bi bi-plus-circle me-2"></i>
+        Adicionar Novo
+      <% end %>
+    </div>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-vcenter table-mobile-md card-table">
+      <thead>
+        <tr>
+          <th>tipo de Quarto</th>
+          <th class="w-1"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @room_types.each do |room_type| %>
+          <tr>
+            <td data-label="Name">
+              <div class="d-flex py-1 align-items-center">
+                <div class="flex-fill">
+                  <div class="font-weight-medium">
+                    <%= room_type.description %>
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td>
+              <div class="btn-list flex-nowrap">
+                <%= link_to admin_room_type_path(room_type), title: "Visualizar", class: "btn btn-success btn-icon" do %>
+                  <i class="bi bi-eye-fill" style="color: white;"></i>
+                <% end %>
+                <%= link_to edit_admin_room_type_path(room_type), title: "Editar", class: "btn btn-icon" do %>
+                  <i class="bi bi-pencil-fill"></i>
+                <% end %>
+                <%= button_to admin_room_type_path(room_type), method: :delete, title: "Deletar", class: "btn btn-danger btn-icon", data: { turbo_confirm: 'Você tem certeza?' } do %>
+                  <i class="bi bi-trash"></i>
+                <% end %>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

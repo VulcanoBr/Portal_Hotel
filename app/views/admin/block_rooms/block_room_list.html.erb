@@ -1,0 +1,48 @@
+<div class="container">
+  <div class="d-flex justify-content-between">
+    <h1 class="mt-0">Bloqueios em Andamento</h1>
+    <div>
+      <% if @pagy.count > 6 %>
+        <div class="me-5">
+          <%= pagy_bootstrap_nav(@pagy).html_safe %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <table class="table table-striped table-hover table-responsive">
+    <thead>
+      <tr>
+        <th>Hotel</th>
+        <th>Andar</th>
+        <th>Número do Quarto</th>
+        <th>Tipo do Quarto</th>
+        <th>Início</th>
+        <th>Término</th>
+        <th>Motivo</th>
+        <th>Finalizado em</th>
+        <th>Status</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @blockrooms.each do |blockroom| %>
+        <tr>
+          <td><%= blockroom.room.hotel.name %></td>
+          <td><%= blockroom.room.floor_number %></td>
+          <td><%= blockroom.room.room_number %></td>
+          <td><%= blockroom.room.room_type.description %></td>
+          <td><%= blockroom.start_date.strftime('%d/%m/%Y') %></td>
+          <td><%= blockroom.end_date.strftime('%d/%m/%Y') %></td>
+          <td><%= blockroom.reason %></td>
+          <td><%= blockroom.finished_at&.strftime('%d/%m/%Y %H:%M') || 'N/A' %></td>
+          <td><%= blockroom.status %></td>
+          <td>
+            <% if blockroom.status == "inprogress" %>
+              <%= link_to 'Finalizar', finish_admin_block_room_path(blockroom), method: :put, class: 'btn btn-danger btn-sm' %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

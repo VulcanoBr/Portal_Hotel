@@ -1,0 +1,11 @@
+<h2>Resumo da Reserva</h2>
+<p>Quarto: <%= Room.find_by(@reservation_data[:room_id]).room_number %></p>
+<p>Check-in: <%= @reservation_data["check_in_date"].to_date %></p>
+<p>Check-out: <%= @reservation_data["check_out_date"].to_date %></p>
+
+<h2>Resumo do Pagamento</h2>
+<p>Método de Pagamento: <%= @payment_data&["payment_method"] %></p>
+<p>Total: <%= @payment_data&["total_value"] %></p>
+<p>Parcelas: <%= @payment_data&["installments"] %></p>
+
+<%= button_to "Concluir", "/", method: :post %>  # complete_reservations_path
