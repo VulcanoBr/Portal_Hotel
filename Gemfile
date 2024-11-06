@@ -42,7 +42,7 @@ gem "simple_form", "~> 5.3"
 gem "devise", "~> 4.9"
 gem "money-rails", "~> 1.15"
 gem "ransack", "~> 4.2"
-gem "pagy", "~> 9.1"
+gem "pagy", "~> 9.2"
 
 
 group :development, :test do
